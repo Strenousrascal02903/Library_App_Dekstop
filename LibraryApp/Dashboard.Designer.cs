@@ -35,10 +35,12 @@
             btn_dashboard = new Button();
             label1 = new Label();
             panel2 = new Panel();
+            comboBox1 = new ComboBox();
             button2 = new Button();
             button1 = new Button();
             tb_search = new TextBox();
             dataGridView1 = new DataGridView();
+            label3 = new Label();
             label2 = new Label();
             printDocument1 = new System.Drawing.Printing.PrintDocument();
             printPreviewDialog1 = new PrintPreviewDialog();
@@ -118,16 +120,29 @@
             // panel2
             // 
             panel2.BackgroundImage = Properties.Resources.bg1;
+            panel2.Controls.Add(comboBox1);
             panel2.Controls.Add(button2);
             panel2.Controls.Add(button1);
             panel2.Controls.Add(tb_search);
             panel2.Controls.Add(dataGridView1);
+            panel2.Controls.Add(label3);
             panel2.Controls.Add(label2);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(185, 0);
             panel2.Name = "panel2";
             panel2.Size = new Size(815, 640);
             panel2.TabIndex = 1;
+            // 
+            // comboBox1
+            // 
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Items.AddRange(new object[] { "Default", "Sort Data By Name ", "Sort Data By Status (Sudah Dikembalikan)", "Sort Data By Status (Belum Dikembalikan)" });
+            comboBox1.Location = new Point(6, 77);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(192, 23);
+            comboBox1.TabIndex = 5;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // button2
             // 
@@ -153,6 +168,7 @@
             button1.TabIndex = 3;
             button1.Text = "Search";
             button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // tb_search
             // 
@@ -170,10 +186,24 @@
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(6, 106);
             dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(797, 466);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.FlatStyle = FlatStyle.Flat;
+            label3.Font = new Font("Tahoma", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label3.ForeColor = Color.SeaShell;
+            label3.Location = new Point(6, 49);
+            label3.Name = "label3";
+            label3.Size = new Size(60, 23);
+            label3.TabIndex = 0;
+            label3.Text = "Filter";
             // 
             // label2
             // 
@@ -182,7 +212,7 @@
             label2.FlatStyle = FlatStyle.Flat;
             label2.Font = new Font("Tahoma", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             label2.ForeColor = Color.SeaShell;
-            label2.Location = new Point(31, 26);
+            label2.Location = new Point(170, 26);
             label2.Name = "label2";
             label2.Size = new Size(391, 23);
             label2.TabIndex = 0;
@@ -236,5 +266,7 @@
         private Button button2;
         private System.Drawing.Printing.PrintDocument printDocument1;
         private PrintPreviewDialog printPreviewDialog1;
+        private ComboBox comboBox1;
+        private Label label3;
     }
 }

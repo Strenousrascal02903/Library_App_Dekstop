@@ -20,6 +20,7 @@ namespace LibraryApp
             InitializeComponent();
             bind_data();
             SetAutoSizeModeForColumns();
+            comboBox1.SelectedIndex = 0;
 
 
         }
@@ -48,27 +49,6 @@ namespace LibraryApp
 
         private void tb_search_TextChanged(object sender, EventArgs e)
         {
-            try
-            {
-                // Membuat perintah SQL untuk melakukan pencarian berdasarkan nama depan
-                SqlCommand cmdSearch = new SqlCommand("SELECT nopinjam, nama, buku, tgl_pinjam, tgl_kembali, status, kondisi FROM library WHERE nama LIKE @nama + '%'", con);
-                cmdSearch.Parameters.AddWithValue("@nama", tb_search.Text);
-
-                SqlDataAdapter da = new SqlDataAdapter();
-                da.SelectCommand = cmdSearch;
-
-                DataTable dt = new DataTable();
-                dt.Clear();
-                da.Fill(dt);
-
-                // Menampilkan hasil pencarian dalam DataGridView
-                dataGridView1.DataSource = dt;
-                dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 11, FontStyle.Bold);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
 
         }
 
@@ -100,7 +80,7 @@ namespace LibraryApp
             dataGridView1.DrawToBitmap(imgBitmap, new Rectangle(0, 0, dataGridView1.Width, dataGridView1.Height));
 
             // Menggambar bitmap ke dalam area cetak pada PrintPage
-            e.Graphics.DrawImage(imgBitmap, 15 , 15);
+            e.Graphics.DrawImage(imgBitmap, 15, 15);
         }
 
         private void SetAutoSizeModeForColumns()
@@ -115,5 +95,82 @@ namespace LibraryApp
             // Mengatur AutoSizeRowsMode untuk baris
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Membuat perintah SQL untuk melakukan pencarian berdasarkan nama depan
+                SqlCommand cmdSearch = new SqlCommand("SELECT nopinjam, nama, buku, tgl_pinjam, tgl_kembali, status, kondisi FROM library WHERE nama LIKE @nama + '%'", con);
+                cmdSearch.Parameters.AddWithValue("@nama", tb_search.Text);
+
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmdSearch;
+
+                DataTable dt = new DataTable();
+                dt.Clear();
+                da.Fill(dt);
+
+                // Menampilkan hasil pencarian dalam DataGridView
+                dataGridView1.DataSource = dt;
+                dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 11, FontStyle.Bold);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                string filterCondition = comboBox1.Text.Trim().ToLower();
+                string query = "";
+
+                // Menentukan query berdasarkan pilihan filter
+                if (filterCondition == "sort data by name")
+                {
+                    query = "SELECT nopinjam, nama AS nama, buku AS buku, tgl_pinjam AS tgl_pinjam, tgl_kembali AS tgl_kembali, status AS status, kondisi FROM library ORDER BY nama ASC";
+                }
+                else if (filterCondition == "sort data by status (belum dikembalikan)")
+                {
+                    query = "SELECT nopinjam, nama AS nama, buku AS buku, tgl_pinjam AS tgl_pinjam, tgl_kembali AS tgl_kembali, status AS status, kondisi FROM library WHERE status = 'Belum Dikembalikan'";
+                }
+                else if (filterCondition == "sort data by status (sudah dikembalikan)")
+                {
+                    query = "SELECT nopinjam, nama AS nama, buku AS buku, tgl_pinjam AS tgl_pinjam, tgl_kembali AS tgl_kembali, status AS status, kondisi FROM library WHERE status = 'Sudah Dikembalikan'";
+                }
+
+                else if (filterCondition == "default")
+                {
+                    query = "SELECT nopinjam, nama AS nama, buku AS buku, tgl_pinjam AS tgl_pinjam, tgl_kembali AS tgl_kembali, status AS status, kondisi FROM library";
+                }
+                else
+                {
+                    // Kondisi default jika tidak ada pilihan yang cocok
+                    MessageBox.Show("Invalid filter condition", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Membuat perintah SQL berdasarkan kondisi filter
+                SqlCommand cmd = new SqlCommand(query, con);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                DataTable dt = new DataTable();
+                dt.Clear();
+                da.Fill(dt);
+
+                // Menampilkan hasil pencarian dalam DataGridView
+                dataGridView1.DataSource = dt;
+                dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 11, FontStyle.Bold);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }

@@ -51,7 +51,7 @@
             // 
             // btn_login
             // 
-            btn_login.BackColor = Color.DodgerBlue;
+            btn_login.BackColor = Color.Sienna;
             btn_login.Font = new Font("Tahoma", 12F, FontStyle.Bold, GraphicsUnit.Point);
             btn_login.ForeColor = SystemColors.ButtonFace;
             btn_login.Location = new Point(553, 370);
@@ -66,6 +66,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Tahoma", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label2.ForeColor = Color.Sienna;
             label2.Location = new Point(553, 262);
             label2.Name = "label2";
             label2.Size = new Size(70, 16);
@@ -76,6 +77,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Tahoma", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.ForeColor = Color.Sienna;
             label1.Location = new Point(553, 149);
             label1.Name = "label1";
             label1.Size = new Size(42, 16);
@@ -116,6 +118,7 @@
             // label3
             // 
             label3.AutoSize = true;
+            label3.ForeColor = Color.SaddleBrown;
             label3.Location = new Point(583, 440);
             label3.Name = "label3";
             label3.Size = new Size(133, 15);
@@ -125,6 +128,8 @@
             // linkLabel1
             // 
             linkLabel1.AutoSize = true;
+            linkLabel1.ForeColor = Color.Sienna;
+            linkLabel1.LinkColor = Color.Sienna;
             linkLabel1.Location = new Point(722, 440);
             linkLabel1.Name = "linkLabel1";
             linkLabel1.Size = new Size(37, 15);
@@ -136,6 +141,7 @@
             // cb_show
             // 
             cb_show.AutoSize = true;
+            cb_show.ForeColor = Color.Sienna;
             cb_show.Location = new Point(553, 345);
             cb_show.Name = "cb_show";
             cb_show.Size = new Size(108, 19);
@@ -148,6 +154,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.Bisque;
             ClientSize = new Size(920, 640);
             Controls.Add(cb_show);
             Controls.Add(linkLabel1);

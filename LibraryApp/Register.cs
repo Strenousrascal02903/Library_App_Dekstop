@@ -13,12 +13,12 @@ namespace LibraryApp
 {
     public partial class Register : Form
     {
-        
+
         private SqlConnection con = new SqlConnection("Data Source=LAPTOP-BCT87QOU;Initial Catalog=loginapp;Integrated Security=True;TrustServerCertificate=true");
         public Register()
         {
             InitializeComponent();
-            
+
         }
 
         private void btn_login_Click(object sender, EventArgs e)
@@ -44,7 +44,7 @@ namespace LibraryApp
                         this.Hide();
 
                         // Menampilkan Form1
-                       Form1 form1 = new Form1();
+                        Form1 form1 = new Form1();
                         form1.Show();
                     }
                     else

@@ -79,32 +79,32 @@ namespace LibraryApp
                 cmd2.Parameters.AddWithValue("@tgl_pinjam", dtp_pinjam.Value.Date.ToString("yyyy-MM-dd"));
                 cmd2.Parameters.AddWithValue("@tgl_kembali", dtp_kembali.Value.Date.ToString("yyyy-MM-dd"));
 
-                string status = "";
+                string kondisi = "";
 
                 if (cbx_baik.Checked)
                 {
-                    status += cbx_baik.Text + ", ";
+                    kondisi += cbx_baik.Text + ", ";
                 }
                 if (cbx_ringan.Checked)
                 {
-                    status += cbx_ringan.Text + ", ";
+                    kondisi += cbx_ringan.Text + ", ";
                 }
                 if (cbx_parah.Checked)
                 {
-                    status += cbx_parah.Text + ", ";
+                    kondisi += cbx_parah.Text + ", ";
                 }
                 if (cbx_hilang.Checked)
                 {
-                    status += cbx_hilang.Text + ", ";
+                    kondisi += cbx_hilang.Text + ", ";
                 }
 
-                if (!string.IsNullOrEmpty(status))
+                if (!string.IsNullOrEmpty(kondisi))
                 {
-                    status = status.TrimEnd(',', ' ');
+                    kondisi = kondisi.TrimEnd(',', ' ');
                 }
 
-                cmd2.Parameters.AddWithValue("@status", status);
-                cmd2.Parameters.AddWithValue("@kondisi", (rd_belum.Checked) ? "Belum Dikembalikan" : "Sudah Dikembalikan");
+                cmd2.Parameters.AddWithValue("@kondisi", kondisi);
+                cmd2.Parameters.AddWithValue("@status", (rd_belum.Checked) ? "Belum Dikembalikan" : "Sudah Dikembalikan");
 
                 con.Open();
                 cmd2.ExecuteNonQuery();
@@ -172,36 +172,36 @@ namespace LibraryApp
                 cmd.Parameters.AddWithValue("@tgl_kembali", dtp_kembali.Value.Date.ToString("yyyy-MM-dd"));
 
                 // Membuat variabel untuk status dan menginisialisasi dengan string kosong
-                string status = "";
+                string kondisi = "";
 
                 // Memeriksa setiap CheckBox dan menambahkan nilai ke variabel status jika dicentang
                 if (cbx_baik.Checked)
                 {
-                    status += cbx_baik.Text + ", ";
+                    kondisi += cbx_baik.Text + ", ";
                 }
                 if (cbx_ringan.Checked)
                 {
-                    status += cbx_ringan.Text + ", ";
+                    kondisi += cbx_ringan.Text + ", ";
                 }
                 if (cbx_parah.Checked)
                 {
-                    status += cbx_parah.Text + ", ";
+                    kondisi += cbx_parah.Text + ", ";
                 }
                 if (cbx_hilang.Checked)
                 {
-                    status += cbx_hilang.Text + ", ";
+                    kondisi += cbx_hilang.Text + ", ";
                 }
 
                 // Menghapus koma ekstra di akhir string
-                if (!string.IsNullOrEmpty(status))
+                if (!string.IsNullOrEmpty(kondisi))
                 {
-                    status = status.TrimEnd(',', ' ');
+                    kondisi = kondisi.TrimEnd(',', ' ');
                 }
 
-                cmd.Parameters.AddWithValue("@status", status);
+                cmd.Parameters.AddWithValue("@kondisi", kondisi);
 
                 // Menambahkan nilai kondisi
-                cmd.Parameters.AddWithValue("@kondisi", rd_belum.Checked ? "Belum Dikembalikan" : "Sudah Dikembalikan");
+                cmd.Parameters.AddWithValue("@status", rd_belum.Checked ? "Belum Dikembalikan" : "Sudah Dikembalikan");
 
                 // Parameter untuk WHERE clause
                 cmd.Parameters.AddWithValue("@nopinjam", tb_nopinjam.Text);
@@ -244,12 +244,12 @@ namespace LibraryApp
                 dtp_kembali.Value = Convert.ToDateTime(selectedrow.Cells["tgl_kembali"].Value);
 
                 // Menetapkan status kondisi dari DataGridView ke RadioButton yang sesuai
-                string kondisi = selectedrow.Cells["kondisi"].Value.ToString();
-                if (kondisi == "Belum Dikembalikan")
+                string status = selectedrow.Cells["status"].Value.ToString();
+                if (status == "Belum Dikembalikan")
                 {
                     rd_belum.Checked = true;
                 }
-                else if (kondisi == "Sudah Dikembalikan")
+                else if (status == "Sudah Dikembalikan")
                 {
                     rd_sudah.Checked = true;
                 }
@@ -261,24 +261,24 @@ namespace LibraryApp
                 cbx_hilang.Checked = false;
 
                 // Mendapatkan nilai status dari DataGridView
-                string[] statusArray = selectedrow.Cells["status"].Value.ToString().Split(',');
+                string[] statusArray = selectedrow.Cells["kondisi"].Value.ToString().Split(',');
 
                 // Mengatur CheckBoxes sesuai dengan nilai status dari DataGridView
-                foreach (string status in statusArray)
+                foreach (string kondisi in statusArray)
                 {
-                    if (status.Trim() == cbx_baik.Text)
+                    if (kondisi.Trim() == cbx_baik.Text)
                     {
                         cbx_baik.Checked = true;
                     }
-                    else if (status.Trim() == cbx_ringan.Text)
+                    else if (kondisi.Trim() == cbx_ringan.Text)
                     {
                         cbx_ringan.Checked = true;
                     }
-                    else if (status.Trim() == cbx_parah.Text)
+                    else if (kondisi.Trim() == cbx_parah.Text)
                     {
                         cbx_parah.Checked = true;
                     }
-                    else if (status.Trim() == cbx_hilang.Text)
+                    else if (kondisi.Trim() == cbx_hilang.Text)
                     {
                         cbx_hilang.Checked = true;
                     }

@@ -257,9 +257,9 @@
             cbx_hilang.ForeColor = Color.SeaShell;
             cbx_hilang.Location = new Point(274, 271);
             cbx_hilang.Name = "cbx_hilang";
-            cbx_hilang.Size = new Size(124, 20);
+            cbx_hilang.Size = new Size(123, 20);
             cbx_hilang.TabIndex = 7;
-            cbx_hilang.Text = "Hilang Halaman";
+            cbx_hilang.Text = "Hilang halaman";
             cbx_hilang.UseVisualStyleBackColor = false;
             // 
             // cbx_parah
@@ -426,11 +426,14 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Location = new Point(36, 360);
             dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
             dataGridView1.RowTemplate.Height = 25;
             dataGridView1.Size = new Size(767, 268);
             dataGridView1.TabIndex = 2;
@@ -443,7 +446,7 @@
             label2.FlatStyle = FlatStyle.Flat;
             label2.Font = new Font("Tahoma", 14.25F, FontStyle.Bold, GraphicsUnit.Point);
             label2.ForeColor = Color.SeaShell;
-            label2.Location = new Point(25, 28);
+            label2.Location = new Point(36, 28);
             label2.Name = "label2";
             label2.Size = new Size(96, 23);
             label2.TabIndex = 1;
