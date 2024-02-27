@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            button3 = new Button();
             btn_logout = new Button();
             btn_edit = new Button();
             btn_dashboard = new Button();
@@ -66,6 +67,7 @@
             // panel1
             // 
             panel1.BackColor = Color.Sienna;
+            panel1.Controls.Add(button3);
             panel1.Controls.Add(btn_logout);
             panel1.Controls.Add(btn_edit);
             panel1.Controls.Add(btn_dashboard);
@@ -76,6 +78,21 @@
             panel1.Size = new Size(185, 640);
             panel1.TabIndex = 0;
             // 
+            // button3
+            // 
+            button3.BackColor = Color.SaddleBrown;
+            button3.FlatAppearance.BorderSize = 0;
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.Font = new Font("Tahoma", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            button3.ForeColor = Color.Bisque;
+            button3.Location = new Point(0, 567);
+            button3.Name = "button3";
+            button3.Size = new Size(185, 51);
+            button3.TabIndex = 8;
+            button3.Text = "Close";
+            button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
+            // 
             // btn_logout
             // 
             btn_logout.BackColor = Color.SaddleBrown;
@@ -83,12 +100,13 @@
             btn_logout.FlatStyle = FlatStyle.Flat;
             btn_logout.Font = new Font("Tahoma", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             btn_logout.ForeColor = Color.Bisque;
-            btn_logout.Location = new Point(0, 563);
+            btn_logout.Location = new Point(0, 512);
             btn_logout.Name = "btn_logout";
             btn_logout.Size = new Size(185, 49);
             btn_logout.TabIndex = 7;
             btn_logout.Text = "Log out";
             btn_logout.UseVisualStyleBackColor = false;
+            btn_logout.Click += btn_logout_Click;
             // 
             // btn_edit
             // 
@@ -431,7 +449,7 @@
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(36, 360);
+            dataGridView1.Location = new Point(35, 359);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.ReadOnly = true;
             dataGridView1.RowTemplate.Height = 25;
@@ -503,5 +521,6 @@
         private Button btn_delete;
         private Button btn_update;
         private Button btn_create;
+        private Button button3;
     }
 }

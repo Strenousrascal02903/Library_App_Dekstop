@@ -44,6 +44,7 @@
             label2 = new Label();
             printDocument1 = new System.Drawing.Printing.PrintDocument();
             printPreviewDialog1 = new PrintPreviewDialog();
+            button3 = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
@@ -52,6 +53,7 @@
             // panel1
             // 
             panel1.BackColor = Color.Sienna;
+            panel1.Controls.Add(button3);
             panel1.Controls.Add(btn_logout);
             panel1.Controls.Add(btn_edit);
             panel1.Controls.Add(btn_dashboard);
@@ -69,7 +71,7 @@
             btn_logout.FlatStyle = FlatStyle.Flat;
             btn_logout.Font = new Font("Tahoma", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             btn_logout.ForeColor = Color.Bisque;
-            btn_logout.Location = new Point(0, 561);
+            btn_logout.Location = new Point(0, 500);
             btn_logout.Name = "btn_logout";
             btn_logout.Size = new Size(185, 49);
             btn_logout.TabIndex = 3;
@@ -232,6 +234,21 @@
             printPreviewDialog1.Name = "printPreviewDialog1";
             printPreviewDialog1.Visible = false;
             // 
+            // button3
+            // 
+            button3.BackColor = Color.SaddleBrown;
+            button3.FlatAppearance.BorderSize = 0;
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.Font = new Font("Tahoma", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            button3.ForeColor = Color.Bisque;
+            button3.Location = new Point(0, 555);
+            button3.Name = "button3";
+            button3.Size = new Size(185, 51);
+            button3.TabIndex = 4;
+            button3.Text = "Close";
+            button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
+            // 
             // Dashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -268,5 +285,6 @@
         private PrintPreviewDialog printPreviewDialog1;
         private ComboBox comboBox1;
         private Label label3;
+        private Button button3;
     }
 }

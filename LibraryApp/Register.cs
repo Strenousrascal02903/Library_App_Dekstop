@@ -25,9 +25,28 @@ namespace LibraryApp
         {
             try
             {
-                string insertQuery = "INSERT INTO loginapp (ussername, password) VALUES (@ussername, @password)";
+                // Membuat query untuk memeriksa apakah username sudah ada
+                string checkQuery = "SELECT COUNT(*) FROM loginapp WHERE ussername = @ussername";
 
                 con.Open();
+
+                // Memeriksa apakah username sudah ada dalam database
+                using (SqlCommand checkCmd = new SqlCommand(checkQuery, con))
+                {
+                    checkCmd.Parameters.AddWithValue("@ussername", tb_nama.Text);
+
+                    int userCount = (int)checkCmd.ExecuteScalar();
+
+                    // Jika username sudah ada, tampilkan pesan kesalahan
+                    if (userCount > 0)
+                    {
+                        MessageBox.Show("Username already exists. Please choose another username.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return; // Keluar dari method untuk menghentikan proses pendaftaran
+                    }
+                }
+
+                // Jika username belum ada, tambahkan pengguna baru
+                string insertQuery = "INSERT INTO loginapp (ussername, password) VALUES (@ussername, @password)";
 
                 using (SqlCommand cmd1 = new SqlCommand(insertQuery, con))
                 {
@@ -74,7 +93,7 @@ namespace LibraryApp
             DialogResult result = MessageBox.Show("Apakah Anda ingin menutup program ini?", "Info", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
             if (result == DialogResult.OK)
             {
-                this.Close();
+                Environment.Exit(0);
             }
         }
 
@@ -90,6 +109,13 @@ namespace LibraryApp
 
                 tb_pass.PasswordChar = '*';
             }
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            this.Hide();
+            Form1 form1 = new Form1();
+            form1.Show();
         }
     }
 }

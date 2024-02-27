@@ -137,6 +137,7 @@
             linkLabel1.TabStop = true;
             linkLabel1.Text = "Login";
             linkLabel1.VisitedLinkColor = Color.Blue;
+            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
             // 
             // cb_show
             // 

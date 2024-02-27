@@ -40,9 +40,10 @@ namespace LibraryApp
 
         }
 
+
         private void btn_edit_Click(object sender, EventArgs e)
         {
-            this.Show();
+            this.Hide();
             Edit edit = new Edit();
             edit.Show();
         }
@@ -80,7 +81,7 @@ namespace LibraryApp
             dataGridView1.DrawToBitmap(imgBitmap, new Rectangle(0, 0, dataGridView1.Width, dataGridView1.Height));
 
             // Menggambar bitmap ke dalam area cetak pada PrintPage
-            e.Graphics.DrawImage(imgBitmap, 15, 15);
+            e.Graphics.DrawImage(imgBitmap, 0, 0);
         }
 
         private void SetAutoSizeModeForColumns()
@@ -114,6 +115,12 @@ namespace LibraryApp
                 // Menampilkan hasil pencarian dalam DataGridView
                 dataGridView1.DataSource = dt;
                 dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("Tahoma", 11, FontStyle.Bold);
+                if (dt.Rows.Count == 0)
+                {
+                    MessageBox.Show("Data not found.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    bind_data();
+                }
+
             }
             catch (Exception ex)
             {
@@ -172,5 +179,13 @@ namespace LibraryApp
             }
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Do you Want To Close This Program", "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (result == DialogResult.OK)
+            {
+                Environment.Exit(0);
+            }
+        }
     }
 }

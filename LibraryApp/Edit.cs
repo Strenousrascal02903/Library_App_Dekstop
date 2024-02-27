@@ -55,10 +55,9 @@ namespace LibraryApp
                 }
 
                 // Membuat query untuk memeriksa keberadaan data yang sama
-                string checkQuery = "SELECT COUNT(*) FROM library WHERE nopinjam = @nopinjam AND nama = @nama";
+                string checkQuery = "SELECT COUNT(*) FROM library WHERE nopinjam = @nopinjam";
                 SqlCommand cmdCheck = new SqlCommand(checkQuery, con);
                 cmdCheck.Parameters.AddWithValue("@nopinjam", tb_nopinjam.Text);
-                cmdCheck.Parameters.AddWithValue("@nama", tb_namaP.Text);
 
                 con.Open();
                 int count = (int)cmdCheck.ExecuteScalar();
@@ -67,7 +66,7 @@ namespace LibraryApp
                 // Jika jumlah data yang ditemukan lebih dari 0, berarti data sudah ada
                 if (count > 0)
                 {
-                    MessageBox.Show("The data already exists.", "Duplicate Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Data with that ID already exists.", "Duplicate Data", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
@@ -288,35 +287,41 @@ namespace LibraryApp
 
         private void btn_delete_Click(object sender, EventArgs e)
         {
-            // Menghapus data terpilih dari tabel library
-            if (!string.IsNullOrEmpty(tb_nopinjam.Text))
+            // Menampilkan pesan konfirmasi sebelum menghapus data
+            DialogResult result = MessageBox.Show("Do you want to delete this data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
             {
-                SqlCommand cmdDelete = new SqlCommand("DELETE FROM library WHERE nopinjam=@nopinjam", con);
-                cmdDelete.Parameters.AddWithValue("@nopinjam", tb_nopinjam.Text);
+                // Menghapus data terpilih dari tabel library
+                if (!string.IsNullOrEmpty(tb_nopinjam.Text))
+                {
+                    SqlCommand cmdDelete = new SqlCommand("DELETE FROM library WHERE nopinjam=@nopinjam", con);
+                    cmdDelete.Parameters.AddWithValue("@nopinjam", tb_nopinjam.Text);
 
-                con.Open();
-                cmdDelete.ExecuteNonQuery();
-                con.Close();
+                    con.Open();
+                    cmdDelete.ExecuteNonQuery();
+                    con.Close();
 
-                // Memuat ulang data setelah data dihapus
-                bind_data();
+                    // Memuat ulang data setelah data dihapus
+                    bind_data();
 
-                // Membersihkan input fields setelah penghapusan
-                tb_nopinjam.Text = "";
-                tb_namaP.Text = "";
-                cb_buku.SelectedIndex = -1;
-                cbx_baik.Checked = false;
-                cbx_ringan.Checked = false;
-                cbx_parah.Checked = false;
-                cbx_hilang.Checked = false;
-                dtp_pinjam.Value = DateTime.Now;
-                dtp_kembali.Value = DateTime.Now;
-                rd_belum.Checked = false;
-                rd_sudah.Checked = false;
-            }
-            else
-            {
-                MessageBox.Show("Choose data that do you want to delete.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    // Membersihkan input fields setelah penghapusan
+                    tb_nopinjam.Text = "";
+                    tb_namaP.Text = "";
+                    cb_buku.SelectedIndex = -1;
+                    cbx_baik.Checked = false;
+                    cbx_ringan.Checked = false;
+                    cbx_parah.Checked = false;
+                    cbx_hilang.Checked = false;
+                    dtp_pinjam.Value = DateTime.Now;
+                    dtp_kembali.Value = DateTime.Now;
+                    rd_belum.Checked = false;
+                    rd_sudah.Checked = false;
+                }
+                else
+                {
+                    MessageBox.Show("Choose data that do you want to delete.", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
 
         }
@@ -328,6 +333,7 @@ namespace LibraryApp
             dash.Show();
         }
 
+
         private void tb_nopinjam_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Mengecek apakah karakter yang dimasukkan bukan angka atau backspace
@@ -335,6 +341,27 @@ namespace LibraryApp
             {
                 // Jika bukan angka, membatalkan input
                 e.Handled = true;
+            }
+        }
+
+        private void btn_logout_Click(object sender, EventArgs e)
+        {
+
+            DialogResult result = MessageBox.Show("Do You Want To Log Out?", "Info", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (result == DialogResult.OK)
+            {
+                this.Hide();
+                Form1 form1 = new Form1();
+                form1.Show();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Do you Want To Close This Program", "Confirmation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (result == DialogResult.OK)
+            {
+                Environment.Exit(0);
             }
         }
     }
